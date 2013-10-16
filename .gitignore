@@ -17,3 +17,6 @@ node_modules
 *.SyncIgnore
 *-OldSync
 .DS_Store
+
+.sublime-project
+.sublime-workspace

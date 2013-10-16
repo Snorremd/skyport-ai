@@ -1,0 +1,32 @@
+{
+  "name": "skyport-ai",
+  "version": "0.0.0",
+  "description": "A simple AI for the Skyport AI game.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Snorremd/skyport-ai.git"
+  },
+  "keywords": [
+    "Skyport",
+    "AI",
+    "artificial",
+    "intelligence",
+    "a*"
+  ],
+  "author": "Snorre Magnus Davøen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Snorremd/skyport-ai/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "coffeelint": "~0.6.1",
+    "coffee": "0.0.1",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-coffeelint": "0.0.7"
+  }
+}

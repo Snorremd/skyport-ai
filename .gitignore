@@ -11,7 +11,7 @@ pids
 logs
 results
 
-build
+build/*.js
 
 npm-debug.log
 node_modules
@@ -22,3 +22,7 @@ node_modules
 
 .sublime-project
 .sublime-workspace
+
+*.sublime-project
+
+*.sublime-workspace

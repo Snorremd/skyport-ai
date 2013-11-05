@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.JSON'),
         clean: {
             build: {
-                src: [ 'build' ]
+                src: [ 'build/*/*.js' ]
             },
             changed: {}
         },

@@ -16,6 +16,7 @@ class SkyportAPI
 
   # Private: Called when connection encounters an error
   error: (errorObject) ->
+    console.log "Error occurred."
     console.log JSON.stringify errorObject
 
   # Public: Send handshake to server with name of bot
@@ -32,16 +33,28 @@ class SkyportAPI
       @dispatchTable["error"]()
     else
       switch object["message"]
-        when "gamestate"
-          if object["turn"] is 0
-            @dispatchTable["gamestart"] object["map"], object["players"]
+        when "connect" then @dispatchTable["handshake"]()
+        when "gamestate" then @processGameState object
+        when "action" then @processGameState object
+         
+  processGameState: (object) ->
+    if object["turn"] is 0
+      @dispatchTable["gamestart"] object["map"], object["players"]
+    else
+      @dispatchTable["gamestate"] object["turn"], object["map"], ["players"]
 
-  sendLoadout: (weapon1, weapon2) ->
+  processAction: (object) ->
+    if object["from"] == player
+      delete object["from"]
+      @dispatchTable["own_action"] object
+    else
+      @dispatchTable["action"] object
+
+  sendLoadout: (primaryWeapon, secondaryWeapon) ->
+    console.log "Send loadout"
     @connection.sendPacket
       "message": "loadout"
-      "primary-weapon": primary_weapon,
-      "secondary-weapon": secondary_weapon
-
-
+      "primary-weapon": primaryWeapon
+      "secondary-weapon": secondaryWeapon
 
 module.exports = SkyportAPI

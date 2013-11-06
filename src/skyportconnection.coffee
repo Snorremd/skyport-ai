@@ -4,7 +4,6 @@ class Connection
 
   constructor: (@host, @port, @api) ->
     @data = ""
-    console.log JSON.stringify @api
 
   # Public: Establish connection to skyport logic java server
   connect: () ->
@@ -17,6 +16,7 @@ class Connection
 
   sendPacket: (object) ->
     console.log "Send object to server"
+    console.log object
     @sock.write JSON.stringify(object) + "\n"
 
   # Public: Process packet
@@ -24,27 +24,19 @@ class Connection
     @api.processPacket object
 
   # Private: Add data to instance's data variable and attempt to read
-  processData: (data) ->
+  processData: (data) =>
     @data += data
-    try
-      @tryToReadLine()
-    catch e
-      @api.error e
+    @tryToReadLine()
 
   # Private: Attempt to read line from data (text)
   tryToReadLine: () ->
     if @data.indexOf '\n' isnt -1
-      console.log @data
       linebuffer = @data.split '\n'
       @data = linebuffer.pop()
       for line in linebuffer
-        do (line) ->
+        do (line) =>
           if line isnt ''
-            try
-              @processLine line
-            catch e
-              throw e
-            
+            @processLine line
 
   # Private: Process one line of data and check if it is a json object
   processLine: (line) ->
@@ -52,6 +44,6 @@ class Connection
       object = JSON.parse line
       @processPacket object
     catch e
-      throw e
+      # Swallow error as most likely just not completed data
 
 module.exports = Connection

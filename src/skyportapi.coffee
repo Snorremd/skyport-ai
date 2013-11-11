@@ -28,7 +28,6 @@ class SkyportAPI
       "name": name
 
   processPacket: (object) ->
-    console.log "Process packet"
     if object["error"]
       @dispatchTable["error"]()
     else
@@ -39,16 +38,20 @@ class SkyportAPI
          
   processGameState: (object) ->
     if object["turn"] is 0
-      @dispatchTable["gamestart"] object["map"], object["players"]
+      @dispatchTable["gamestart"] object
     else
-      @dispatchTable["gamestate"] object["turn"], object["map"], ["players"]
+      @dispatchTable["gamestate"] object
 
   processAction: (object) ->
-    if object["from"] == player
-      delete object["from"]
-      @dispatchTable["own_action"] object
+    from = object["from"]
+    type = object["type"]
+    delete object["from"]
+    delete object["type"]
+
+    if from == player
+      @dispatchTable["own_action"] type, object
     else
-      @dispatchTable["action"] object
+      @dispatchTable["action"] type, object, from
 
   sendLoadout: (primaryWeapon, secondaryWeapon) ->
     console.log "Send loadout"

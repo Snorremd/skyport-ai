@@ -15,8 +15,6 @@ class Connection
       @processData data
 
   sendPacket: (object) ->
-    console.log "Send object to server"
-    console.log object
     @sock.write JSON.stringify(object) + "\n"
 
   # Public: Process packet
@@ -44,6 +42,6 @@ class Connection
       object = JSON.parse line
       @processPacket object
     catch e
-      # Swallow error as most likely just not completed data
+      console.log e
 
 module.exports = Connection

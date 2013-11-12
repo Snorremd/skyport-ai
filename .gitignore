@@ -12,6 +12,8 @@ logs
 results
 
 build/*.js
+docs
+docsold
 
 npm-debug.log
 node_modules
@@ -20,9 +22,6 @@ node_modules
 *-OldSync
 .DS_Store
 
-.sublime-project
-.sublime-workspace
-
 *.sublime-project
-
 *.sublime-workspace
+

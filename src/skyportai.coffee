@@ -1,10 +1,8 @@
 SkyportAPI = require "./skyportapi"
-GameState = require "./gamestate"
 
 class SimpleAI
 
   constructor: (@name) ->
-    @gamestate = null
     @api = new SkyportAPI @name
     @api.on "connection", @gotConnection
     @api.on "error", @gotError
@@ -32,13 +30,11 @@ class SimpleAI
   # Public: Aapi received gamestate with turn number 0
   gotGameStart: (serverstate) =>
     console.log "Got gamestart, send loadout"
-    @gamestate = new GameState serverstate
     @api.sendLoadout "laser", "mortar"
     console.log "Send loadout"
 
   # Public: Api received game state of turn > 0
   gotGameState: (gamestate) =>
-    @gamestate.update gamestate
     console.log "Got gamestate"
 
   # Public: Api received action message about our own action

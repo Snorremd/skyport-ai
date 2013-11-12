@@ -29,7 +29,6 @@ module.exports = function(grunt) {
                 tasks: ["coffeelint:build", "clean:build", "coffee:build"]
             }
         }
-
     });
 
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -55,8 +54,5 @@ module.exports = function(grunt) {
         'builds and then watches project for changes',
         ['build', 'watch']
     );
-
-
-
 
 };

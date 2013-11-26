@@ -5,6 +5,8 @@
 #  https://github.com/Amadiro/Skyport-logic/blob/master/docs/en/PROTOCOL.md)
 # through the SkyportAPI class.
 
+
+# Import `Connection` and `GameState` classes.
 Connection = require("./skyportconnection")
 GameState = require "./gamestate"
 
@@ -112,6 +114,7 @@ class SkyportAPI
       "message": "action"
       "type": "move"
       "direction": direction
+
 
 # Export `SkyportAPI` class.
 module.exports = SkyportAPI

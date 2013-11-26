@@ -2,7 +2,7 @@
 
 Skyport-api is an API for the artificial intelligence game [Skyport](https://github.com/Amadiro/Skyport-logic). The game is simply put about creating an AI actor (aka bot) that traverse a hexagonal map with the objective of killing the other bots. The game is turn based and allows each bot to perform three turns. They may move, attack, mine minerals or upgrade weapons. For more details please refer to the [Skyport repository](https://github.com/Amadiro/Skyport-logic).
 
-The repository contains an API written in JavaScript. The code is pretty basic and lack convenience features. This repository is an attempt at a better API. It contains useful features such as calculation of neighbouring tiles, caculation of the distance between two tiles, game state storage etc.
+The repository contains an API written in JavaScript. The code is pretty basic and lack convenience features. This repository is an attempt at a better API. It contains useful features such as calculation of neighbouring tiles, calculation of the distance between two tiles, game state storage etc.
 
 ## Building the skyport-api module
 The API is implemented as a javascript module intended to be run by a Node.js application. In order to use or test the skyport-api you must first clone the git repository or download it to your computer. Open the skyport-api folder in a terminal or console and run `npm install`. This will get all the development dependencies for the project including coffee-script, coffeelint, docco, grunt tasks etc. Then run `grunt` to build the project.
@@ -44,7 +44,82 @@ See the RandomAI class in `src/examples/skyportai.coffee` for a [CoffeeScript ba
 There currently remain some work before the module can be packaged and uploaded as a npm module. A todo list is provided here:
 
 1. Finish random walker example.
-2. Implement more conveniance functionality?
+2. Implement more convenience functionality?
 3. Implement tests for all API methods/functions.
 4. Package as a npm module and make it easily importable.
 
+### Code style
+
+In lieu of a formal style guide the build script runs [CoffeeLint](http://www.coffeelint.org/) with the default parameters. You can also use a CoffeeScript linter in your favourite editor or IDE. Essentially the
+default settings help you write more idiomatic CoffeeScript code.
+
+Style choices not caught by the linter that you are encouraged to follow:
+#### Vertical spacing
+There should be one line spacing between the following items:
+- Class properties
+- Class methods
+- Instance methods
+
+There should be two line spacing between:
+- End of class definitions and module code.
+
+Example:
+```Coffeescript
+# Module doc
+
+
+# Import doc
+Connection = require("./skyportconnection")
+GameState = require "./gamestate"
+
+
+# Class doc
+class SkyportAPI
+
+  # Constructor doc
+  constructor: (@name) ->
+    @dispatchTable = {}
+    @gamestate = null
+    @connection = new Connection "localhost", 54321, this
+
+  # Method doc
+  connect: () ->
+    @connection.connect()
+
+  # Method doc
+  on: (signal, handler) ->
+    @dispatchTable[signal] = handler
+
+
+# Other module code
+somevalue = someMethod someParameter
+```
+
+### Testing
+Currently there are no tests to run against the API. Please test your code profusely before
+sending a pull request. Describe the changes done and how to test them in the pull request message.
+
+### Bug reports
+If you discover bugs or other issues with the API, please submit an issue [here](https://github.com/Snorremd/skyport-api/issues).
+
+## License
+The MIT License (MIT)
+
+Copyright (c) 2013 Snorre Magnus Davøen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

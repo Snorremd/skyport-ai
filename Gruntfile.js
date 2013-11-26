@@ -26,7 +26,15 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ["src/**/*.coffee", 'test/**/*.coffee'],
-                tasks: ["coffeelint:build", "clean:build", "coffee:build"]
+                tasks: ["coffeelint:build", "clean:build", "coffee:build", "docco:build"]
+            }
+        },
+        docco: {
+            build: {
+                src: ["src/**/*.coffee"],
+                options: {
+                    output: 'docs/'
+                }
             }
         }
     });
@@ -35,6 +43,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-coffeelint');
     grunt.loadNpmTasks('grunt-contrib-coffee');
+    grunt.loadNpmTasks('grunt-docco');
 
     grunt.registerTask(
         'run',
@@ -46,7 +55,7 @@ module.exports = function(grunt) {
     grunt.registerTask(
         'build',
         'lints and compiles all files',
-        ['clean:build', 'coffeelint:build', 'coffee:build']
+        ['clean:build', 'coffeelint:build', 'coffee:build', 'docco:build']
     );
 
     grunt.registerTask(

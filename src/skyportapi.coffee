@@ -59,7 +59,7 @@ class SkyportAPI
         when "connect" then @dispatchTable["handshake"]()
         when "gamestate" then @processGameState object
         when "action" then @processAction object
-  
+
   # Process the game state object received from the Skyport server.
   # If it is our first round create a `GameState` instance.
   # If it is a round > 0 update the game state (`@gamestate`).
@@ -104,16 +104,23 @@ class SkyportAPI
   # Send loadout to the Skyport server.
   sendLoadout: (primaryWeapon, secondaryWeapon) ->
     @connection.sendPacket
-      "message": "loadout"
+      message: "loadout"
       "primary-weapon": primaryWeapon
       "secondary-weapon": secondaryWeapon
 
   # Send a move mesage to the Skyport server.
   move: (direction) ->
     @connection.sendPacket
-      "message": "action"
-      "type": "move"
-      "direction": direction
+      message: "action"
+      type: "move"
+      direction: direction
+
+  # Send a laser message to the Skyport server.
+  laser: (direction) ->
+    @connection.sendPacket
+      message: "action"
+      type: "laser"
+      direction: direction
 
 
 # Export `SkyportAPI` class.

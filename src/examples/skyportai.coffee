@@ -30,7 +30,7 @@ class RandomAI
     @api.on "action", @gotAction
     @api.connect()
 
-    @myActions = ["move", "laser", "mortar"]
+    @myActions = ["move", "laser"]
 
   # Api got a physical connection to server.
   # Send handshake to server.
@@ -87,9 +87,10 @@ class RandomAI
   # Api received game state for our turn and updated
   # the `GameState` instance with player info.
   gotMyTurn: (gamestate) =>
-    choice = "move" #@myActions[Math.floor Math.random() * @myActions.length]
+    choice =  @myActions[Math.floor Math.random() * @myActions.length]
     switch choice
       when "move" then @randomMove gamestate
+      when "laser" then @randomLaser gamestate
       else console.log "Nothing"
 
   # Api received action message about our own action.
@@ -127,6 +128,16 @@ class RandomAI
     console.log "Move #{direction}"
 
     @api.move direction
+
+  # Perform a random laser attack.
+  randomLaser: (gamestate) ->
+    console.log JSON.stringify gamestate.map.DIRECTIONS
+    directions = gamestate.map.constructor.DIRECTIONS
+    randDirection = directions[Math.floor Math.random() *
+                                   directions.length]
+
+    console.log "I'm going to shoot #{randDirection}"
+    @api.laser randDirection
 
 
 # Print a welcome message

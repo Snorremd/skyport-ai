@@ -10,7 +10,7 @@ Tile = require "./tile"
 # but has coordinate values in each cell object in the mapData double array.
 class Map
 
-  directions = ['up', 'down', 'up-right', 'down-right', 'up-left', 'down-left']
+  @DIRECTIONS: ['up', 'down', 'right-up', 'right-down', 'left-up', 'left-down']
 
   # Constructor method for the `Map` class. The mapObject is given by
   # the Skyport Logic server and comes in the following form:
